@@ -9,17 +9,32 @@ import com.blogPostApp.blogserver.entities.User;
 import com.blogPostApp.blogserver.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@CrossOrigin(origins ="http://localhost:5173" )
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
-
+    
+    
     // User registration
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User newUser = userService.registerUser(user);
+        
+        
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+    
+    @PostMapping("/registerUserId")
+    public  ResponseEntity<Integer> registerUserID(@RequestBody User user) {
+        // Save the user to the database (you may want to hash the password)
+    	User newUser = userService.registerUser(user);
+
+        // The user ID is automatically generated and can be accessed from the saved user entity
+        int generatedUserId = user.getId();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(generatedUserId);
     }
 
     // User login
