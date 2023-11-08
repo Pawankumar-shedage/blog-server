@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -28,17 +30,24 @@ public class Post {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Column(columnDefinition = "TEXT")
+    private LocalDateTime createdAt;
+
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "post")
     private List<Like> likes;
 
@@ -63,6 +72,7 @@ public class Post {
         this.comments = comments;
         this.likes = likes;
         this.broadcastedBlog = broadcastedBlog;
+        this.createdAt = createdAt;
     }
 
     // getters and setters
@@ -144,5 +154,13 @@ public class Post {
 
     public void setBroadcastedBlog(BroadcastedBlog broadcastedBlog) {
         this.broadcastedBlog = broadcastedBlog;
+    }
+
+    public LocalDateTime getCreatetedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

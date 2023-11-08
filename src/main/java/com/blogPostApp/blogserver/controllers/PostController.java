@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
+import java.util.Collections;
 import com.blogPostApp.blogserver.entities.Post;
 import com.blogPostApp.blogserver.services.PostService;
 
@@ -24,6 +25,17 @@ public class PostController {
 
         Post savedPost = postService.createPost(post);
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
+    }
+
+    // To get all posts
+    @GetMapping("/postList")
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        if (posts.isEmpty()) {
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     // Endpoint to retrieve a single blog post by its ID
