@@ -9,6 +9,7 @@ import com.blogPostApp.blogserver.entities.User;
 import com.blogPostApp.blogserver.services.UserService;
 
 @RestController
+
 @RequestMapping("/api/users")
 public class UserController {
 

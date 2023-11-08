@@ -2,7 +2,6 @@ package com.blogPostApp.blogserver.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.blogPostApp.blogserver.entities.User;
 import com.blogPostApp.blogserver.repositories.UserRepository;
 
@@ -22,6 +21,7 @@ public class UserService {
         } else {
             return null; // You may also consider throwing a custom exception
         }
+
     }
 
     public User editUserProfile(String userName, User updatedUser) {
